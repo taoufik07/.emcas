@@ -70,12 +70,12 @@
 (defun shift-right (count)
   (interactive "p")
   (shift-text 4)
-  ;;(forward-char 4)
+  ;; (forward-char 4)
   )
 
 (defun shift-left (count)
   (interactive "p")
-  (backward-char 4)
+  ;; (backward-char 4)
   (shift-text (- 4)))
 
 (global-set-key (kbd "<M-right>") 'shift-right)
@@ -88,7 +88,7 @@
   (end-of-line)
   (newline-and-indent))
 
-(global-set-key (kbd "C-c <RET>") 'insert-line-below)
+(global-set-key (kbd "C-<RET>") 'insert-line-below)
 
 (defun insert-line-above ()
   "Insert an empty line above the current line."
@@ -97,7 +97,7 @@
   (end-of-line)
   (newline-and-indent))
 
-(global-set-key (kbd "<M-RET>") 'insert-line-above)
+(global-set-key (kbd "M-<RET>") 'insert-line-above)
 
 (provide 'init-misc-editing)
 ;;; init-misc-editing.el ends here

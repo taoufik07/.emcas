@@ -43,5 +43,11 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+;; Resize window
+(global-set-key (kbd "<M-S-up>") 'shrink-window)
+(global-set-key (kbd "<M-S-down>") 'enlarge-window)
+(global-set-key (kbd "<M-S-left>") 'shrink-window-horizontally)
+(global-set-key (kbd "<M-S-right>") 'enlarge-window-horizontally)
+
 (provide 'init-misc-defaults)
 ;;; init-misc-defaults.el ends here
