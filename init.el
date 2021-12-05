@@ -34,6 +34,7 @@
 (load-user-file "./conf/utils.el")
 (load-user-file "./conf/init-osx-keys.el")
 (load-user-file "./conf/init-misc-defaults.el")
+(load-user-file "./conf/init-frames.el")
 (load-user-file "./conf/init-themes.el")
 (load-user-file "./conf/init-packages.el")
 (load-user-file "./conf/init-copy-paste-term.el")
