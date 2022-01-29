@@ -19,10 +19,10 @@
   "Cut to system clipboard."
   (interactive "r")
   (call-process-region beg end copy-system-cmd nil nil nil "-selection" "c")
-  (kill-region beg end))
+  ;; (kill-region beg end))
+  (delete-region beg end))
 
 (global-set-key (kbd "C-w") 'x-cut)
-
 
 (provide 'init-copy-paste-term)
 ;;; init-copy-paste-term.el ends here

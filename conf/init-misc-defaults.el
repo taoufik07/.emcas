@@ -10,6 +10,7 @@
 
 (delete-selection-mode t)
 (global-auto-revert-mode t)
+(global-linum-mode t)
 
 ;; rgrep
 (setq grep-save-buffers nil)
@@ -20,6 +21,17 @@
 
 ;; Prevent opening new windows
 (setq split-height-threshold nil split-width-threshold nil)
+
+(defun delete-word (arg)
+  "Delete word"
+  (interactive "p")
+  (delete-region (point) (progn (forward-word arg) (point))))
+
+(defun backward-delete-word (arg)
+  (interactive "p")
+  (delete-word (- arg)))
+
+(global-set-key (kbd "M-<backspace>") 'backward-delete-word)
 
 ;;; Locals
 (set-default-coding-systems 'utf-8)
