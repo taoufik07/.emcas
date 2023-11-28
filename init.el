@@ -1,6 +1,5 @@
 ;;; .emacs --- My custom emacs file
 ;;; Commentary:
-;;; Gathered in the urge
 ;;; S/O internet
 
 ;;; Code:
@@ -12,6 +11,8 @@
   (setq gc-cons-threshold init-gc-cons-threshold)
   (add-hook 'emacs-startup-hook (lambda ()
 				  (setq gc-cons-threshold normal-gc-cons-threshold))))
+
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
 
 (defun reload-init-file ()
   (interactive)
@@ -42,17 +43,19 @@
 (load-user-file "./conf/init-misc-editing.el")
 (load-user-file "./conf/init-buffers.el")
 (load-user-file "./conf/init-languages.el")
+(load-user-file "./conf/init-org-mode.el")
+(load-user-file "./conf/init-font.el")
 
 
 (provide 'init)
-;;; init.el ends here
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(clipetty rjsx-mode go-mode rust-mode markdown-mode yaml-mode terraform-mode shfmt elpy flycheck iedit multiple-cursors async projectile magit try dracula-theme use-package)))
+   '(flymake-ruff jupyter terraform-mode kubernetes lsp-ui lsp-mode true yaml-mode which-key vertico use-package typescript-mode try spinner shfmt rust-mode rjsx-mode pyenv-mode projectile org-superstar org-appear multiple-cursors markdown-mode marginalia magit lv iedit ht go-mode flycheck elpy dracula-theme clipetty async add-node-modules-path))
+ '(warning-suppress-types '((comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
