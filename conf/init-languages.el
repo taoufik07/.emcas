@@ -3,8 +3,6 @@
 
 ;;; Code:
 
-(use-package org)
-
 (use-package
   flycheck
   :ensure t
@@ -15,37 +13,55 @@
   :ensure t
   :init (which-key-mode))
 
-(use-package
-  elpy
+(use-package yasnippet
   :ensure t
-  :init (setq elpy-rpc-python-command "python3")
-  (setq python-shell-interpreter "python3")
-  (add-to-list 'process-coding-system-alist '("python" . (utf-8 . utf-8)))
-  :config (elpy-enable))
+  :config
+  (yas-reload-all)
+  (add-hook 'prog-mode-hook #'yas-minor-mode))
 
-(use-package
-  pipenv
-  :hook (python-mode . pipenv-mode)
-  :init
-  (setq
-   pipenv-projectile-after-switch-function
-   #'pipenv-projectile-after-switch-extended))
-
-(use-package
-  pyenv-mode
+(use-package yasnippet-snippets
   :ensure t)
 
-(defun projectile-pyenv-mode-set ()
-  "Set pyenv version matching project name."
-  (let ((project (projectile-project-name)))
-    (if (member project (pyenv-mode-versions))
-        (pyenv-mode-set project)
-      (pyenv-mode-unset))))
+(use-package elpy
+  :ensure t
+  :init
+  (advice-add 'python-mode :before 'elpy-enable)
+  (setq elpy-rpc-python-command "python3")
+  (setq python-shell-interpreter "python3")
+  (add-to-list 'process-coding-system-alist '("python" . (utf-8 . utf-8)))
+  (elpy-enable))
 
-(add-hook 'projectile-after-switch-project-hook 'projectile-pyenv-mode-set)
+;; (require 'flymake-ruff)
+;; (add-hook 'python-mode-hook #'flymake-ruff-load)
+
+(use-package flymake-ruff
+  :ensure t
+  :init
+  :hook (python-mode .  flymake-ruff-load))
+
+;; (use-package
+;;   pipenv
+;;   :hook (python-mode . pipenv-mode)
+;;   :init
+;;   (setq
+;;    pipenv-projectile-after-switch-function
+;;    #'pipenv-projectile-after-switch-extended))
+
+;; (use-package
+;;   pyenv-mode
+;;   :ensure t)
+
+;; (defun projectile-pyenv-mode-set ()
+;;   "Set pyenv version matching project name."
+;;   (let ((project (projectile-project-name)))
+;;     (if (member project (pyenv-mode-versions))
+;;         (pyenv-mode-set project)
+;;       (pyenv-mode-unset))))
+
+;; (add-hook 'projectile-after-switch-project-hook 'projectile-pyenv-mode-set)
 
 (use-package
-  shfmt					; Shell format
+  shfmt
   :ensure t
   :hook (sh-mode . shfmt-on-save-mode))
 
@@ -78,12 +94,9 @@
   :init (progn (add-to-list 'exec-path "~/go/bin")
 	       (setq gofmt-command "goimports")
 	       (add-hook 'before-save-hook 'gofmt-before-save)
-	       ;; (add-hook 'go-mode-hook 'auto-complete-for-go)
+	       (add-hook 'go-mode-hook 'auto-complete-for-go)
 	       (add-hook 'go-mode-hook (lambda ()
-					 (setq tab-width 4))))
-  :hook ((before-save . gofmt-before-save)
-	 ;;(go-mode . auto-complete-for-go)
-	 ))
+					 (setq tab-width 4)))))
 
 (use-package
   add-node-modules-path
@@ -94,12 +107,15 @@
   rjsx-mode
   :ensure t
   :mode (("\\.js\\'" . rjsx-mode)
-		 ("\\.jsx\\'" . rjsx-mode))
-   :hook ((after-save . prettier-fix-file-and-revert)))
+	 ("\\.jsx\\'" . rjsx-mode)
+	 ("\\.ts\\'" . rjsx-mode)
+	 ("\\.tsx\\'" . rjsx-mode))
+  ;; :hook ((after-save . prettier-fix-file-and-revert))
+  )
 
-;; (add-hook 'rjsx-mode
-;;           (lambda ()
-;;             (add-hook 'after-save-hook #'eslint-fix-file-and-revert)))
+(add-hook 'rjsx-mode
+          (lambda ()
+            (add-hook 'after-save-hook #'eslint-fix-file-and-revert)))
 
 (defun prettier-fix-file ()
   (interactive)
@@ -113,6 +129,36 @@
   (when (eq major-mode 'rjsx-mode)
 	(prettier-fix-file)
 	(revert-buffer t t)))
+
+;; (add-hook 'typescript-mode
+;;           (lambda ()
+;;             (add-hook 'after-save-hook #'eslint-fix-file-and-revert)))
+
+(use-package
+  typescript-mode
+  :ensure t
+  :mode  (("\\.ts\\'" . typescript-mode)
+		  ("\\.tsx\\'" . typescript-mode))
+)
+
+(use-package lsp-mode
+  :ensure t
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  :hook ((typescript-mode . lsp)
+		 ;; (terraform-mode . lsp)
+		 (go-mode . lsp-deferred)
+		 (go-mode-hook . lsp-deferred)
+		 ;; (lsp-mode . lsp-enable-which-key-integration)
+		 (before-save . lsp-organize-imports)
+		 ;; (before-save . lsp-format-buffer)
+	 )
+  :config (setq lsp-go-use-gofumpt t)
+  :commands (lsp lsp-deferred))
+
+;; (use-package lsp-ui
+;;   :ensure  t
+;;   :commands lsp-ui-mode)
 
 (provide 'init-languages)
 ;;; init-languages.el ends here
