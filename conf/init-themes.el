@@ -11,8 +11,6 @@
 (setq scroll-conservatively 100)
 (setq tab-width 4)
 
-(setq line-number-mode t line-format "%d " column-number-mode t)
-
 (setq inhibit-startup-message t initial-scratch-message ";; Happy Hacking")
 
 ;;; TODO: Auto checkout to this commit iterm on macos https://raw.githubusercontent.com/dracula/emacs/3e6bbd3618316aa8e2b354e8ad14008589f6fdb9/dracula-theme.el

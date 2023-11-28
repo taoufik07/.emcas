@@ -10,10 +10,16 @@
 
 (delete-selection-mode t)
 (global-auto-revert-mode t)
-(global-linum-mode t)
+(global-display-line-numbers-mode t)
 
 ;; rgrep
-(setq grep-save-buffers nil)
+;; (setq grep-save-buffers nil)
+
+;;; backup
+(setq backup-directory-alist '(("." . "~/.emacs.d/my-temp-backups")))
+
+ (setq auto-save-file-name-transforms
+        `((".*" "~/.emacs.d/my-temp-backups" t)))
 
 ;;; show matching parenthesis and set delay to 0.
 (show-paren-mode t)

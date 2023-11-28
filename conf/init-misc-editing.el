@@ -6,9 +6,6 @@
 (delete-selection-mode t)
 (global-auto-revert-mode t)
 
-;; rgrep
-(setq grep-save-buffers nil)
-
 ;;; show matching parenthesis and set delay to 0.
 (show-paren-mode t)
 (setq show-paren-delay 0)
