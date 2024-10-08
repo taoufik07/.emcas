@@ -62,7 +62,9 @@
   vertico
   :ensure t
   :init
-  (vertico-mode))
+  (vertico-mode)
+  :config
+  (setq completion-styles '(basic substring partial-completion flex)))
 
 (use-package
   marginalia
