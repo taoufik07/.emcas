@@ -16,9 +16,10 @@
 (use-package
   projectile
   :ensure t
-  :bind ("M-p" . 'projectile-command-map)
   :init
   (projectile-mode)
+  (remove-hook 'buffer-list-update-hook #'projectile-track-known-projects-find-file-hook)
+  :bind ("M-p" . 'projectile-command-map)
   :custom ((setq projectile-enable-caching t)
 	   (setq projectile-switch-project-action 'projectile-dired)
 	   (setq projectile-completion-system 'default)))
