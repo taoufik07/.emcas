@@ -99,40 +99,25 @@
 					 (setq tab-width 4)))))
 
 (use-package
-  add-node-modules-path
-  :ensure t
-  :hook ((flycheck-mode-hook . add-node-modules-path)))
-
-(use-package
   rjsx-mode
   :ensure t
   :mode (("\\.js\\'" . rjsx-mode)
 	 ("\\.jsx\\'" . rjsx-mode)
 	 ("\\.ts\\'" . rjsx-mode)
 	 ("\\.tsx\\'" . rjsx-mode))
-  ;; :hook ((after-save . prettier-fix-file-and-revert))
-  )
 
-(add-hook 'rjsx-mode
-          (lambda ()
-            (add-hook 'after-save-hook #'eslint-fix-file-and-revert)))
-
-(defun prettier-fix-file ()
-  (interactive)
-  (message "prettier --fixing the file" (buffer-file-name))
-  (call-process-shell-command
-    (concat "yarn run prettier --write " (buffer-file-name)))
-   nil "*Shell Command Output*" t)
-
-(defun prettier-fix-file-and-revert ()
-  (interactive)
-  (when (eq major-mode 'rjsx-mode)
-	(prettier-fix-file)
-	(revert-buffer t t)))
-
-;; (add-hook 'typescript-mode
-;;           (lambda ()
-;;             (add-hook 'after-save-hook #'eslint-fix-file-and-revert)))
+(use-package apheleia
+  :ensure apheleia
+  :defines
+  apheleia-formatters
+  apheleia-mode-alist
+  :functions
+  apheleia-global-mode
+  :config
+  (setq-default indent-tabs-mode nil)
+  (setf (alist-get 'prettier-json apheleia-formatters)
+        '("prettier" "--stdin-filepath" filepath))
+  (apheleia-global-mode t))
 
 (use-package
   typescript-mode
