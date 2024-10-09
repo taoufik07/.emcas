@@ -92,19 +92,14 @@
   go-mode
   :ensure t
   :init (progn (add-to-list 'exec-path "~/go/bin")
-	       (setq gofmt-command "goimports")
-	       (add-hook 'before-save-hook 'gofmt-before-save)
-	       (add-hook 'go-mode-hook 'auto-complete-for-go)
 	       (add-hook 'go-mode-hook (lambda ()
-					 (setq tab-width 4)))))
-
-(use-package
-  rjsx-mode
-  :ensure t
-  :mode (("\\.js\\'" . rjsx-mode)
-	 ("\\.jsx\\'" . rjsx-mode)
-	 ("\\.ts\\'" . rjsx-mode)
-	 ("\\.tsx\\'" . rjsx-mode))
+					 (setq tab-width 4))))
+  :config (setq gofmt-command "gofumpt")
+  (setq lsp-go-use-gofumpt t)
+  :hook (
+	 (before-save-hook . gofmt-before-save)
+	 (go-mode-hook . lsp-deferred)
+	 (go-mode-hook . auto-complete-for-go)))
 
 (use-package apheleia
   :ensure apheleia
@@ -119,31 +114,63 @@
         '("prettier" "--stdin-filepath" filepath))
   (apheleia-global-mode t))
 
-(use-package
-  typescript-mode
+(use-package treesit-auto
   :ensure t
-  :mode  (("\\.ts\\'" . typescript-mode)
-		  ("\\.tsx\\'" . typescript-mode))
-)
+  :custom
+  (treesit-auto-install 'prompt)
+  (treesit-auto-langs '(bash c css go html javascript json make markdown rust toml typescript yaml))
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
 
-(use-package lsp-mode
+(use-package jtsx
   :ensure t
-  :init
-  (setq lsp-keymap-prefix "C-c l")
-  :hook ((typescript-mode . lsp)
-		 ;; (terraform-mode . lsp)
-		 (go-mode . lsp-deferred)
-		 (go-mode-hook . lsp-deferred)
-		 ;; (lsp-mode . lsp-enable-which-key-integration)
-		 (before-save . lsp-organize-imports)
-		 ;; (before-save . lsp-format-buffer)
-	 )
-  :config (setq lsp-go-use-gofumpt t)
-  :commands (lsp lsp-deferred))
+  :mode (("\\.jsx?\\'" . jtsx-jsx-mode)
+         ("\\.tsx\\'" . jtsx-tsx-mode)
+         ("\\.ts\\'" . jtsx-typescript-mode))
+  :commands jtsx-install-treesit-language
+  :hook ((jtsx-jsx-mode . hs-minor-mode)
+         (jtsx-tsx-mode . hs-minor-mode)
+         (jtsx-typescript-mode . hs-minor-mode))
+  :custom
+  ;; Optional customizations
+  (js-indent-level 2)
+  (typescript-ts-mode-indent-offset 2)
+  ;; (jtsx-switch-indent-offset 0)
+  ;; (jtsx-indent-statement-block-regarding-standalone-parent nil)
+  ;; (jtsx-jsx-element-move-allow-step-out t)
+  ;; (jtsx-enable-jsx-electric-closing-element t)
+  ;; (jtsx-enable-electric-open-newline-between-jsx-element-tags t)
+  ;; (jtsx-enable-jsx-element-tags-auto-sync nil)
+  ;; (jtsx-enable-all-syntax-highlighting-features t)
+  :config
+  (defun jtsx-bind-keys-to-mode-map (mode-map)
+    "Bind keys to MODE-MAP."
+    (define-key mode-map (kbd "C-c n") 'jtsx-jump-jsx-element-tag-dwim)
+    (define-key mode-map (kbd "C-c j o") 'jtsx-jump-jsx-opening-tag)
+    (define-key mode-map (kbd "C-c j c") 'jtsx-jump-jsx-closing-tag)
+    (define-key mode-map (kbd "C-c j r") 'jtsx-rename-jsx-element)
+    (define-key mode-map (kbd "C-c <down>") 'jtsx-move-jsx-element-tag-forward)
+    (define-key mode-map (kbd "C-c <up>") 'jtsx-move-jsx-element-tag-backward)
+    (define-key mode-map (kbd "C-c C-<down>") 'jtsx-move-jsx-element-forward)
+    (define-key mode-map (kbd "C-c C-<up>") 'jtsx-move-jsx-element-backward)
+    (define-key mode-map (kbd "C-c C-S-<down>") 'jtsx-move-jsx-element-step-in-forward)
+    (define-key mode-map (kbd "C-c C-S-<up>") 'jtsx-move-jsx-element-step-in-backward)
+    (define-key mode-map (kbd "C-c j w") 'jtsx-wrap-in-jsx-element)
+    (define-key mode-map (kbd "C-c j u") 'jtsx-unwrap-jsx)
+    (define-key mode-map (kbd "C-c j d") 'jtsx-delete-jsx-node)
+    (define-key mode-map (kbd "C-c j t") 'jtsx-toggle-jsx-attributes-orientation)
+    (define-key mode-map (kbd "C-c j h") 'jtsx-rearrange-jsx-attributes-horizontally)
+    (define-key mode-map (kbd "C-c j v") 'jtsx-rearrange-jsx-attributes-vertically))
 
-;; (use-package lsp-ui
-;;   :ensure  t
-;;   :commands lsp-ui-mode)
+  (defun jtsx-bind-keys-to-jtsx-jsx-mode-map ()
+    (jtsx-bind-keys-to-mode-map jtsx-jsx-mode-map))
+
+  (defun jtsx-bind-keys-to-jtsx-tsx-mode-map ()
+    (jtsx-bind-keys-to-mode-map jtsx-tsx-mode-map))
+
+  (add-hook 'jtsx-jsx-mode-hook 'jtsx-bind-keys-to-jtsx-jsx-mode-map)
+  (add-hook 'jtsx-tsx-mode-hook 'jtsx-bind-keys-to-jtsx-tsx-mode-map))
 
 (provide 'init-languages)
 ;;; init-languages.el ends here
