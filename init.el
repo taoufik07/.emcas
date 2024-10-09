@@ -43,6 +43,7 @@
 (load-user-file "./conf/init-misc-editing.el")
 (load-user-file "./conf/init-buffers.el")
 (load-user-file "./conf/init-languages.el")
+(load-user-file "./conf/init-lsp.el")
 (load-user-file "./conf/init-org-mode.el")
 (load-user-file "./conf/init-font.el")
 
@@ -54,8 +55,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(flymake-ruff jupyter terraform-mode kubernetes lsp-ui lsp-mode true yaml-mode which-key vertico use-package typescript-mode try spinner shfmt rust-mode rjsx-mode pyenv-mode projectile org-superstar org-appear multiple-cursors markdown-mode marginalia magit lv iedit ht go-mode flycheck elpy dracula-theme clipetty async add-node-modules-path))
- '(warning-suppress-types '((comp))))
+   '(jtsx lsp-completion yasnippet-snippets yaml-mode which-key vertico vc-use-package typescript-mode try treesit-auto terraform-mode shfmt rust-mode rjsx-mode projectile pet org-superstar org-appear orderless multiple-cursors marginalia magit lsp-ui iedit htmlize go-mode flymake-ruff flycheck find-file-in-project elpy dracula-theme corfu clipetty async apheleia add-node-modules-path)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
