@@ -56,7 +56,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(jtsx lsp-completion yasnippet-snippets yaml-mode which-key vertico vc-use-package typescript-mode try treesit-auto terraform-mode shfmt rust-mode rjsx-mode projectile pet org-superstar org-appear orderless multiple-cursors marginalia magit lsp-ui iedit htmlize go-mode flymake-ruff flycheck find-file-in-project elpy dracula-theme corfu clipetty async apheleia add-node-modules-path)))
+   '(apheleia async clipetty dracula-theme elpy find-file-in-project
+              go-mode iedit jtsx lsp-mode lsp-ui lv magit marginalia
+              markdown-mode multiple-cursors org-appear org-superstar
+              projectile rust-mode shfmt terraform-mode treesit-auto
+              try vertico yaml-mode yasnippet-snippets)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

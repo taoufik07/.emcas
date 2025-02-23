@@ -24,10 +24,10 @@
 	   (setq projectile-switch-project-action 'projectile-dired)
 	   (setq projectile-completion-system 'default)))
 
-;; (use-package
-;;   find-file-in-project
-;;   :ensure t
-;;   :bind (("M-p f" . 'find-file-in-project)))
+(use-package
+  find-file-in-project
+  :ensure t
+  :bind (("M-p f" . 'find-file-in-project)))
 
 ;;; Use async whenever it's possible
 (use-package
@@ -63,8 +63,8 @@
   :ensure t
   :init
   (vertico-mode)
-  :config
-  (setq completion-styles '(basic substring partial-completion flex)))
+  :custom
+  (completion-styles '(basic substring partial-completion flex)))
 
 (use-package
   marginalia
