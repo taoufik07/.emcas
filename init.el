@@ -6,6 +6,8 @@
 
 ;; Update GC thresholds during startup
 
+;; (setenv "LSP_USE_PLISTS" "true")
+
 (defvar normal-gc-cons-threshold (* 20 1024 1024))
 (defvar init-gc-cons-threshold (* 128 1024 1024))
 
@@ -56,11 +58,12 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(apheleia async clipetty dracula-theme elpy find-file-in-project
-              go-mode iedit jtsx lsp-mode lsp-ui lv magit marginalia
-              markdown-mode multiple-cursors org-appear org-superstar
-              projectile rust-mode shfmt terraform-mode treesit-auto
-              try vertico yaml-mode yasnippet-snippets)))
+   '(apheleia async clipetty corfu dracula-theme elpy
+              find-file-in-project flycheck gnu-elpa-keyring-update
+              go-mode iedit ivy jtsx lsp-ui magit marginalia
+              multiple-cursors org-appear org-superstar projectile
+              rust-mode shfmt terraform-mode treesit-auto try vertico
+              yaml-mode yasnippet-snippets)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

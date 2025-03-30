@@ -5,8 +5,17 @@
 
 (use-package lsp-eslint
   :demand t
-  :after lsp-mode)
+  :after lsp-mode
+  :custom
+  (lsp-eslint-enable 0)
+  (lsp-eslint-auto-fix-on-save t))
 
+(use-package
+  lsp-treemacs
+  :ensure t
+  :after (lsp-mode)
+  :init
+  (setq lsp-treemacs-sync-mode 1))
 
 ;;; Copied from https://github.com/ovistoica/emacs/blob/main/init.el
 ;;; I like how he listed all config
@@ -16,12 +25,16 @@
   :hook ((lsp-mode . lsp-diagnostics-mode)
          (lsp-mode . lsp-enable-which-key-integration)
          (before-save . lsp-organize-imports)
-	 ;; (before-save . lsp-format-buffer)
-         ((tsx-ts-mode
+	 (before-save . lsp-format-buffer)
+         ((go-ts-mode
+           tsx-ts-mode
+           jtsx-tsx-mode
+           jtsx-typescript-mode
            typescript-mode
            typescript-ts-mode
            js-ts-mode) . lsp-deferred))
   :custom
+  (lsp-treemacs-sync-mode 1)
   (lsp-keymap-prefix "C-c l")           ; Prefix for LSP actions
   (lsp-session-file (locate-user-emacs-file ".lsp-session"))
   (lsp-log-io nil)                      ; IMPORTANT! Use only for debugging! Drastically affects performance
@@ -29,7 +42,7 @@
   (lsp-idle-delay 0.5)                  ; Debounce timer for `after-change-function'
   ;; core
   ;; (lsp-enable-file-watchers nil)
-  (lsp-enable-indentation nil)
+  (lsp-enable-indentation t)
   ;; (lsp-enable-on-type-formatting nil)   ; Prettier handles this
   (lsp-enable-text-document-color nil)   ; This is Treesitter's job
   (lsp-ui-sideline-show-hover nil)      ; Sideline used only for diagnostics

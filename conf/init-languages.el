@@ -89,17 +89,22 @@
   :init (setq rust-format-on-save t))
 
 (use-package
-  go-mode
+  go-ts-mode
   :ensure t
-  :init (progn (add-to-list 'exec-path "~/go/bin")
-	       (add-hook 'go-mode-hook (lambda ()
-					 (setq tab-width 4))))
-  :config (setq gofmt-command "gofumpt")
-  (setq lsp-go-use-gofumpt t)
-  :hook (
-	 (before-save-hook . gofmt-before-save)
-	 (go-mode-hook . lsp-deferred)
-	 (go-mode-hook . auto-complete-for-go)))
+  :hook
+  (go-ts-mode . lsp-deferred)
+  (go-ts-mode . go-format-on-save-mode)
+  :mode (("\\.go\\'" . go-ts-mode)
+         ("/go\\.mod\\'" . go-mod-ts-mode))
+  :init
+  (add-to-list 'exec-path "~/go/bin")
+
+  :config
+  (setq go-ts-mode-indent-offset 4)
+  (reformatter-define go-format
+    :program "gofumpt"
+    :args '("/dev/stdin"))
+  )
 
 (use-package apheleia
   :ensure apheleia
