@@ -18,8 +18,8 @@
 ;;; backup
 (setq backup-directory-alist '(("." . "~/.emacs.d/my-temp-backups")))
 
- (setq auto-save-file-name-transforms
-        `((".*" "~/.emacs.d/my-temp-backups" t)))
+(setq auto-save-file-name-transforms
+      `((".*" "~/.emacs.d/my-temp-backups" t)))
 
 ;;; show matching parenthesis and set delay to 0.
 (show-paren-mode t)
