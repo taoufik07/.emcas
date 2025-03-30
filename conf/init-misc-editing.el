@@ -6,6 +6,8 @@
 (delete-selection-mode t)
 (global-auto-revert-mode t)
 
+(setq-default tab-width 4)
+
 ;;; show matching parenthesis and set delay to 0.
 (show-paren-mode t)
 (setq show-paren-delay 0)
@@ -78,6 +80,10 @@
 (global-set-key (kbd "<M-right>") 'shift-right)
 (global-set-key (kbd "<M-left>") 'shift-left)
 
+(global-set-key (kbd "<tab>") 'shift-right)
+(global-set-key (kbd "<backtab>") 'shift-left)
+
+
 ;;;
 (defun insert-line-below ()
   "Insert an empty line below the current line."
@@ -85,7 +91,7 @@
   (end-of-line)
   (newline-and-indent))
 
-(global-set-key (kbd "C-<RET>") 'insert-line-below)
+(global-set-key (kbd "C-<return>") 'insert-line-below)
 
 (defun insert-line-above ()
   "Insert an empty line above the current line."
@@ -94,7 +100,7 @@
   (end-of-line)
   (newline-and-indent))
 
-(global-set-key (kbd "M-<RET>") 'insert-line-above)
+(global-set-key (kbd "M-<return>") 'insert-line-above)
 
 (provide 'init-misc-editing)
 ;;; init-misc-editing.el ends here

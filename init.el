@@ -60,10 +60,10 @@
  '(package-selected-packages
    '(apheleia async clipetty corfu dracula-theme elpy
               find-file-in-project flycheck gnu-elpa-keyring-update
-              go-mode iedit ivy jtsx lsp-ui magit marginalia
-              multiple-cursors org-appear org-superstar projectile
-              rust-mode shfmt terraform-mode treesit-auto try vertico
-              yaml-mode yasnippet-snippets)))
+              go-mode iedit ivy jtsx lsp-treemacs lsp-ui magit
+              marginalia multiple-cursors org-appear org-superstar
+              projectile rust-mode shfmt terraform-mode treesit-auto
+              try vertico yaml-mode yasnippet-snippets)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
