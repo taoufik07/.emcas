@@ -29,6 +29,7 @@
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
 
 (defun load-user-file (file)
   (interactive "f")
@@ -57,13 +58,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(apheleia async clipetty corfu dracula-theme elpy
-              find-file-in-project flycheck gnu-elpa-keyring-update
-              go-mode iedit ivy jtsx lsp-treemacs lsp-ui magit
-              marginalia multiple-cursors org-appear org-superstar
-              projectile rust-mode shfmt terraform-mode treesit-auto
-              try vertico yaml-mode yasnippet-snippets)))
+ '(package-selected-packages nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
