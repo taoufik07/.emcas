@@ -13,9 +13,9 @@
 (use-package
   lsp-treemacs
   :ensure t
-  :after (lsp-mode)
-  :init
-  (setq lsp-treemacs-sync-mode 1))
+  :after lsp-mode
+  :custom
+  (lsp-treemacs-sync-mode 1))
 
 ;;; Copied from https://github.com/ovistoica/emacs/blob/main/init.el
 ;;; I like how he listed all config
@@ -25,7 +25,7 @@
   :hook ((lsp-mode . lsp-diagnostics-mode)
          (lsp-mode . lsp-enable-which-key-integration)
          (before-save . lsp-organize-imports)
-	 (before-save . lsp-format-buffer)
+		 (before-save . lsp-format-buffer)
          ((go-ts-mode
            tsx-ts-mode
            jtsx-tsx-mode
@@ -34,7 +34,6 @@
            typescript-ts-mode
            js-ts-mode) . lsp-deferred))
   :custom
-  (lsp-treemacs-sync-mode 1)
   (lsp-keymap-prefix "C-c l")           ; Prefix for LSP actions
   (lsp-session-file (locate-user-emacs-file ".lsp-session"))
   (lsp-log-io nil)                      ; IMPORTANT! Use only for debugging! Drastically affects performance
@@ -67,7 +66,6 @@
   (lsp-lens-enable nil)                 ; Optional, I don't need it
   ;; semantic
   (lsp-semantic-tokens-enable nil)      ; Related to highlighting, and we defer to treesitter
-
   )
 
 (use-package lsp-ui
@@ -76,7 +74,7 @@
   (lsp-ui-doc-show
    lsp-ui-doc-glance)
   :bind (:map lsp-mode-map
-	      ("C-c C-d" . 'lsp-ui-doc-glance))
+	          ("C-c C-d" . 'lsp-ui-doc-glance))
   :after (lsp-mode)
   :config (setq lsp-ui-doc-enable t))
 
