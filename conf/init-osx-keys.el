@@ -41,7 +41,7 @@
   (define-key input-decode-map "\e[72;13;7~" (kbd "C-M-<return>"))
   (define-key input-decode-map "\e[72;13;8~" (kbd "C-S-M-<return>"))
 
-  ;; ;; Backspace
+  ;; Backspace
   (define-key input-decode-map "\e[72;8;2~"  (kbd "S-<backspace>"))
   (define-key input-decode-map (kbd "M-DEL") (kbd "M-<backspace>"))
   (define-key input-decode-map "\e[72;8;4~"  (kbd "S-M-<backspace>"))

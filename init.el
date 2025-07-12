@@ -37,7 +37,9 @@
   (load-file (expand-file-name file user-init-dir)))
 
 (load-user-file "./conf/utils.el")
-(load-user-file "./conf/init-osx-keys.el")
+
+;; A little trial to phase out osx-keys binding on Ghostty
+;; (load-user-file "./conf/init-osx-keys.el")
 (load-user-file "./conf/init-misc-defaults.el")
 (load-user-file "./conf/init-frames.el")
 (load-user-file "./conf/init-themes.el")

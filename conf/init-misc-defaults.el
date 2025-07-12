@@ -38,6 +38,7 @@
   (delete-word (- arg)))
 
 (global-set-key (kbd "M-<backspace>") 'backward-delete-word)
+(global-set-key (kbd "M-DEL") 'backward-delete-word)
 
 ;;; Locals
 (set-default-coding-systems 'utf-8)
